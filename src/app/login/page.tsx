@@ -1,19 +1,39 @@
 "use client";
 
+import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useState } from 'react';
 import Link from 'next/link';
 import Input from '../../components/input';
+import { verify } from '@/services/verify';
 
-interface LoginFormInputs {
+type LoginFormInputs = {
     email: string;
     password: string;
-}
+};
 
 export default function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const router = useRouter();
 
-    const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
-        console.log('Logged In:', data);
+    const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
+        setErrorMessage(null);
+        try {
+            const response = await verify({
+                email: data.email,
+                password: data.password,
+            });
+
+            if (response.success) {
+                console.log('Verification successful:', response);
+                router.push(`/verify?email=${encodeURIComponent(data.email)}`);
+            } else {
+                setErrorMessage(response.message);
+            }
+        } catch (error) {
+            setErrorMessage('An unexpected error occurred.');
+        }
     };
 
     return (
@@ -37,6 +57,9 @@ export default function Login() {
                         options={{ required: 'Password is required!' }}
                         error={errors.password?.message || ''}
                     />
+
+                    {errorMessage && <p className="text-red-500 mb-4">{errorMessage}!</p>}
+
                     <button type="submit" className="w-full bg-primary-blue text-white px-4 py-2 rounded hover:bg-midnight-blue transition">
                         Log In
                     </button>
