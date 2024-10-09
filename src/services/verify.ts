@@ -15,11 +15,11 @@ export const verify = async (data: VerifyData) => {
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
-            console.error('Verification error:', error.response?.data);
-            throw error;
+            const errorMessage = error.response?.data?.message || 'An error occurred during verification.';
+            return { success: false, message: errorMessage };
         } else {
             console.error('An unknown error occurred during verification:', error);
-            throw error;
+            return { success: false, message: 'An unknown error occurred.' };
         }
     }
 };
