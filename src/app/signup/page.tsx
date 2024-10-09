@@ -1,8 +1,11 @@
 "use client";
 
+import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
 import Input from '../../components/input';
+import { useState } from 'react';
+import { registerUser } from '@/services/register';
 
 type SignUpFormInputs = {
     username: string;
@@ -12,9 +15,35 @@ type SignUpFormInputs = {
 
 export default function SignUp() {
     const { register, handleSubmit, formState: { errors } } = useForm<SignUpFormInputs>();
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
+    const [showPopup, setShowPopup] = useState(false);
+    const router = useRouter();
 
-    const onSubmit: SubmitHandler<SignUpFormInputs> = (data) => {
-        console.log('Signed Up:', data);
+    const onSubmit: SubmitHandler<SignUpFormInputs> = async (data) => {
+        setErrorMessage(null);
+        setSuccessMessage(null);
+
+        try {
+            const result = await registerUser({
+                email: data.email,
+                password: data.password,
+                userName: data.username,
+            });
+
+            if (result.success) {
+                setSuccessMessage('User registered successfully.');
+                setShowPopup(true);
+                setTimeout(() => {
+                    setShowPopup(false);
+                    router.push('/login');
+                }, 5000);
+            } else {
+                setErrorMessage(result.message || 'Failed to register user.');
+            }
+        } catch {
+            setErrorMessage('An unknown error occurred. Please try again.' );
+        }
     };
 
     return (
