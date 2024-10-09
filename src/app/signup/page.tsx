@@ -4,11 +4,11 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
 import Input from '../../components/input';
 
-interface SignUpFormInputs {
+type SignUpFormInputs = {
     username: string;
     email: string;
     password: string;
-}
+};
 
 export default function SignUp() {
     const { register, handleSubmit, formState: { errors } } = useForm<SignUpFormInputs>();
