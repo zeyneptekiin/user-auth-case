@@ -7,7 +7,7 @@ type VerifyData = {
 
 export const verify = async (data: VerifyData) => {
     try {
-        const response = await axios.post('http://199.247.17.44:3001/users/verify', data, {
+        const response = await axios.post('/api/users/verify', data, {
             headers: {
                 'Content-Type': 'application/json',
             },
