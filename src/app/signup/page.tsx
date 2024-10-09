@@ -50,6 +50,18 @@ export default function SignUp() {
         <div className="flex items-center justify-center min-h-screen p-8 bg-lightest-blue">
             <div className="w-[400px] text-center bg-lighter-blue px-6 py-8 rounded-2xl shadow-xl">
                 <h2 className="text-lg font-semibold mb-4">Sign Up</h2>
+
+                {errorMessage && <p className="text-red-500 mb-4">{errorMessage}</p>}
+
+                {successMessage && showPopup && (
+                    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+                        <div className="bg-white p-4 rounded shadow-md text-center">
+                            <p className="text-green-500 mb-4">{successMessage}</p>
+                            <p>You will be redirected to login page in 5 seconds...</p>
+                        </div>
+                    </div>
+                )}
+
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Input
                         type="text"
