@@ -11,10 +11,11 @@ type SignUpFormInputs = {
     username: string;
     email: string;
     password: string;
+    confirmPassword: string;
 };
 
 export default function SignUp() {
-    const { register, handleSubmit, formState: { errors } } = useForm<SignUpFormInputs>();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<SignUpFormInputs>();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
     const [showPopup, setShowPopup] = useState(false);
@@ -86,6 +87,18 @@ export default function SignUp() {
                         name="password"
                         options={{ required: 'Password is required!' }}
                         error={errors.password?.message}
+                    />
+                    <Input
+                        type="password"
+                        placeholder="Confirm Password"
+                        register={register}
+                        name="confirmPassword"
+                        options={{
+                            required: 'Confirm Password is required!',
+                            validate: (value: string) =>
+                                value === watch('password') || 'Passwords do not match!',
+                        }}
+                        error={errors.confirmPassword?.message}
                     />
                     <button type="submit" className="w-full bg-primary-blue text-white px-4 py-2 rounded hover:bg-midnight-blue transition">
                         Sign Up
