@@ -5,8 +5,11 @@ import Navbar from "@/components/navbar";
 
 
 export const metadata: Metadata = {
-  title: "YCC",
-  description: "Generated for YCC Case",
+    title: "YCC",
+    description: "Generated for YCC Case",
+    icons: {
+        icon: '/icon.png',
+    },
 };
 
 export default function RootLayout({
