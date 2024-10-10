@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Input from '../../components/Input';
 import { useState } from 'react';
 import { registerUser } from '@/services/register';
+import PasswordModal from '../../components/PasswordModal';
 
 type SignUpFormInputs = {
     username: string;
@@ -19,6 +20,7 @@ export default function SignUp() {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
     const [showPopup, setShowPopup] = useState(false);
+    const [passwordTouched, setPasswordTouched] = useState(false);
     const router = useRouter();
 
     const onSubmit: SubmitHandler<SignUpFormInputs> = async (data) => {
@@ -85,9 +87,15 @@ export default function SignUp() {
                         placeholder="Password"
                         register={register}
                         name="password"
-                        options={{ required: 'Password is required!' }}
+                        options={{
+                            required: 'Password is required!',
+                            onChange: () => setPasswordTouched(true),
+                        }}
                         error={errors.password?.message}
                     />
+
+                    <PasswordModal password={watch('password')} touched={passwordTouched} />
+
                     <Input
                         type="password"
                         placeholder="Confirm Password"
