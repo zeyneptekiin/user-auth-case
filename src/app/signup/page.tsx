@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
-import Input from '../../components/input';
+import Input from '../../components/Input';
 import { useState } from 'react';
 import { registerUser } from '@/services/register';
 

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
 import Link from 'next/link';
-import Input from '../../components/input';
+import Input from '../../components/Input';
 import { verify } from '@/services/verify';
 
 type LoginFormInputs = {
