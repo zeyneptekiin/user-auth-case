@@ -52,7 +52,8 @@ export default function SignUp() {
     return (
         <div className="flex items-center justify-center min-h-screen p-8 bg-lightest-blue">
             <div className="w-[400px] text-center bg-lighter-blue px-6 py-8 rounded-2xl shadow-xl">
-                <h2 className="text-lg font-semibold mb-4">Sign Up</h2>
+                <h2 className="text-lg font-semibold mb-1 text-black-blue">Sign Up</h2>
+                <h3 className="text-sm text-darker-blue mb-4">Create a new account</h3>
 
                 {errorMessage && <p className="text-red-500 mb-4">{errorMessage}</p>}
 
@@ -71,7 +72,7 @@ export default function SignUp() {
                         placeholder="Username"
                         register={register}
                         name="username"
-                        options={{ required: 'Username is required!' }}
+                        options={{required: 'Username is required!'}}
                         error={errors.username?.message}
                     />
                     <Input
@@ -79,7 +80,7 @@ export default function SignUp() {
                         placeholder="Email"
                         register={register}
                         name="email"
-                        options={{ required: 'Email is required!' }}
+                        options={{required: 'Email is required!'}}
                         error={errors.email?.message}
                     />
                     <Input
@@ -94,7 +95,7 @@ export default function SignUp() {
                         error={errors.password?.message}
                     />
 
-                    <PasswordModal password={watch('password')} touched={passwordTouched} />
+                    <PasswordModal password={watch('password')} touched={passwordTouched}/>
 
                     <Input
                         type="password"
