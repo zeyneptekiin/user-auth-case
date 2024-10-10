@@ -26,7 +26,7 @@ export default function PasswordModal({ password, touched }: PasswordModalProps)
     return (
         <>
             {isOpen && (
-                <ul className="text-left text-sm">
+                <ul className="text-left text-sm mb-3 pl-2">
                     <li className={passwordStrength.isValidLength ? "text-green-500" : "text-red-500"}>
                         At least 8 characters
                     </li>
