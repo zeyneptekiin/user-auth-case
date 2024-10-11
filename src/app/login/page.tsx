@@ -27,7 +27,7 @@ export default function Login() {
 
             if (response.success) {
                 console.log('Verification successful:', response);
-                router.push(`/verify?email=${encodeURIComponent(data.email)}`);
+                router.push(`/login/verify?email=${encodeURIComponent(data.email)}`);
             } else {
                 setErrorMessage(response.message);
             }
