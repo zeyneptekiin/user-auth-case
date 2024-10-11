@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
 import { login } from '@/services/login';
+import OtpInput from 'react-otp-input';
 
 type OtpFormInputs = {
     otp: string;
@@ -13,15 +14,16 @@ export default function Verify() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const email = searchParams.get('email');
-    const { register, handleSubmit, formState: { errors } } = useForm<OtpFormInputs>();
+    const { handleSubmit, formState: { errors } } = useForm<OtpFormInputs>();
+    const [otp, setOtp] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    const onOtpSubmit: SubmitHandler<OtpFormInputs> = async (otpData) => {
+    const onOtpSubmit: SubmitHandler<OtpFormInputs> = async () => {
         setErrorMessage(null);
         try {
             const response = await login({
                 email: email as string,
-                otp: otpData.otp,
+                otp: otp,
             });
 
             if (response.success) {
@@ -44,11 +46,13 @@ export default function Verify() {
                 </p>
 
                 <form onSubmit={handleSubmit(onOtpSubmit)}>
-                    <input
-                        type="text"
-                        placeholder="Enter your OTP"
-                        {...register('otp', { required: 'OTP is required!' })}
-                        className={`w-full p-2 mb-1 border rounded ${errors.otp ? 'border-red-500' : 'border-gray-300'}`}
+                    <OtpInput
+                        value={otp}
+                        onChange={setOtp}
+                        numInputs={6}
+                        renderInput={(props) => <input {...props} />}
+                        containerStyle="mb-4"
+                        inputStyle={`mx-auto !w-10 h-10 border rounded ${errors.otp ? 'border-red-500' : 'border-gray-300'}`}
                     />
                     {errorMessage && <p className="text-left text-red-500 text-sm mb-3 pl-2">{errorMessage}!</p>}
 
