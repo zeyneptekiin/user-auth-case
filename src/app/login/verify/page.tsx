@@ -31,8 +31,9 @@ export default function Verify() {
             } else {
                 setErrorMessage(response.message);
             }
-        } catch (error) {
-            setErrorMessage('An unknown error occurred.');
+        } catch (error: unknown) {
+            const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
+            setErrorMessage(`An unknown error occurred: ${errorMessage}`);
         }
     };
 
