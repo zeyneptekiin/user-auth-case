@@ -7,7 +7,7 @@ type OtpLoginData = {
 
 export const login = async (data: OtpLoginData) => {
     try {
-        const response = await axios.post('http://199.247.17.44:3001/auth/login', data, {
+        const response = await axios.post('/api/auth/login', data, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -15,9 +15,11 @@ export const login = async (data: OtpLoginData) => {
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
-            throw new Error(error.response?.data.message || 'OTP verification failed.');
+            const errorMessage = error.response?.data?.message || 'An error occurred during verification.';
+            return { success: false, message: errorMessage };
         } else {
-            throw new Error('An unknown error occurred during OTP verification.');
+            console.error('An unknown error occurred:', error);
+            return { success: false, message: 'An unknown error occurred.' };
         }
     }
 };
