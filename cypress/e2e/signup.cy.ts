@@ -39,6 +39,11 @@ describe('Sign Up Page', () => {
             body: { success: true },
         }).as('registerUser');
 
+        cy.intercept('POST', '/api/users/verify', {
+            statusCode: 200,
+            body: { success: true },
+        }).as('loginVerify');
+
         cy.get('input[name="username"]').type('testuser');
         cy.get('input[name="email"]').type('test@example.com');
         cy.get('input[name="password"]').type('Password123');
@@ -46,12 +51,13 @@ describe('Sign Up Page', () => {
 
         cy.get('button[type="submit"]').click();
 
-        cy.wait(2000);
-
         cy.wait('@registerUser');
-        cy.contains('You will be redirected to login page in 5 seconds...').should('be.visible');
+        cy.wait('@loginVerify');
 
-        cy.url().should('include', '/login');
+        cy.contains('You will be redirected to OTP page in 5 seconds...').should('be.visible');
+
+        cy.wait(6000);
+        cy.url().should('include', '/login/verify');
     });
 
     it('displays error message on failed registration', () => {
