@@ -58,7 +58,7 @@ export default function Login() {
                         error={errors.password?.message || ''}
                     />
 
-                    {errorMessage && <p className="text-red-500 mb-4">{errorMessage}!</p>}
+                    {errorMessage && <p className="text-red-500 mb-4 text-left text-sm pl-2">{errorMessage}!</p>}
 
                     <button type="submit" className="w-full bg-primary-blue text-white px-4 py-2 rounded hover:bg-midnight-blue transition">
                         Log In
