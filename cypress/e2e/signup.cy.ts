@@ -23,7 +23,6 @@ describe('Sign Up Page', () => {
     });
 
     it('shows an error if passwords do not match', () => {
-        // Fill in the form with mismatched passwords
         cy.get('input[name="username"]').type('testuser');
         cy.get('input[name="email"]').type('test@example.com');
         cy.get('input[name="password"]').type('password123');
