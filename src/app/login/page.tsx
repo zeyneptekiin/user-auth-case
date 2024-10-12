@@ -32,8 +32,11 @@ export default function Login() {
                 setErrorMessage(response.message);
             }
         } catch (error) {
-            setErrorMessage('An unexpected error occurred.');
-        }
+            if (error instanceof Error) {
+                setErrorMessage(error.message);
+            } else {
+                setErrorMessage('An unexpected error occurred.');
+            }        }
     };
 
     return (
