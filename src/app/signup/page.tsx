@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Input from '../../components/Input';
 import { useState } from 'react';
 import { registerUser } from '@/services/register';
+import { verify } from '@/services/verify';
 import PasswordModal from '../../components/PasswordModal';
 
 type SignUpFormInputs = {
@@ -37,10 +38,20 @@ export default function SignUp() {
             if (result.success) {
                 setSuccessMessage('User registered successfully.');
                 setShowPopup(true);
-                setTimeout(() => {
-                    setShowPopup(false);
-                    router.push('/login');
-                }, 5000);
+
+                const loginResponse = await verify({
+                    email: data.email,
+                    password: data.password,
+                });
+
+                if (loginResponse.success) {
+                    setTimeout(() => {
+                        router.push(`/login/verify?email=${encodeURIComponent(data.email)}`);
+                    }, 5000);
+                } else {
+                    setErrorMessage('Login after registration failed.');
+                }
+
             } else {
                 setErrorMessage(result.message || 'Failed to register user.');
             }
