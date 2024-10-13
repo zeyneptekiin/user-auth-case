@@ -6,6 +6,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Input from '../../components/Input';
 import { verify } from '@/services/verify';
+import Button from "@/components/Button";
 
 type LoginFormInputs = {
     email: string;
@@ -63,9 +64,9 @@ export default function Login() {
 
                     {errorMessage && <p className="text-red-500 mb-4 text-left text-sm pl-2">{errorMessage}!</p>}
 
-                    <button type="submit" className="w-full bg-primary-blue text-white px-4 py-2 rounded hover:bg-midnight-blue transition">
+                    <Button>
                         Log In
-                    </button>
+                    </Button>
                 </form>
                 <p className="mt-4">
                     Don&#39;t have an account? <Link href="/signup" className="font-semibold">Sign Up</Link>

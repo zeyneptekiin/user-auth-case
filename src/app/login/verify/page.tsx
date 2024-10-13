@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useState, Suspense } from 'react';
 import { login } from '@/services/login';
 import OtpInput from 'react-otp-input';
+import Button from "@/components/Button";
 
 type OtpFormInputs = {
     otp: string;
@@ -57,9 +58,9 @@ function OtpForm() {
                     />
                     {errorMessage && <p className="text-left text-red-500 text-sm mb-3 pl-2">{errorMessage}!</p>}
 
-                    <button type="submit" className="w-full bg-primary-blue text-white px-4 py-2 rounded hover:bg-midnight-blue transition">
+                    <Button>
                         Submit
-                    </button>
+                    </Button>
                 </form>
             </div>
         </div>

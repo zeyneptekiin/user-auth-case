@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { registerUser } from '@/services/register';
 import { verify } from '@/services/verify';
 import PasswordModal from '../../components/PasswordModal';
+import Button from "@/components/Button";
 
 type SignUpFormInputs = {
     username: string;
@@ -120,9 +121,9 @@ export default function SignUp() {
                         }}
                         error={errors.confirmPassword?.message}
                     />
-                    <button type="submit" className="w-full bg-primary-blue text-white px-4 py-2 rounded hover:bg-midnight-blue transition">
+                    <Button>
                         Sign Up
-                    </button>
+                    </Button>
                 </form>
                 <p className="mt-4">
                     Already have an account? <Link href="/login" className="font-semibold">Log In</Link>
