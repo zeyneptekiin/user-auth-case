@@ -9,6 +9,7 @@ import { registerUser } from '@/services/register';
 import { verify } from '@/services/verify';
 import PasswordModal from '../../components/PasswordModal';
 import Button from "@/components/Button";
+import { useAuthStore } from '@/store/authStore';
 
 type SignUpFormInputs = {
     username: string;
@@ -18,6 +19,7 @@ type SignUpFormInputs = {
 };
 
 export default function SignUp() {
+    const { setUserName, setEmail, setPassword } = useAuthStore();
     const { register, handleSubmit, watch, formState: { errors } } = useForm<SignUpFormInputs>();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -46,8 +48,11 @@ export default function SignUp() {
                 });
 
                 if (loginResponse.success) {
+                    setUserName(data.username);
+                    setEmail(data.email);
+                    setPassword(data.password);
                     setTimeout(() => {
-                        router.push(`/login/verify?email=${encodeURIComponent(data.email)}`);
+                        router.push(`/login/verify`);
                     }, 5000);
                 } else {
                     setErrorMessage('Login after registration failed.');
@@ -57,7 +62,7 @@ export default function SignUp() {
                 setErrorMessage(result.message || 'Failed to register user.');
             }
         } catch {
-            setErrorMessage('An unknown error occurred. Please try again.' );
+            setErrorMessage('An unknown error occurred. Please try again.');
         }
     };
 

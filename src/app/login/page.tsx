@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Input from '../../components/Input';
 import { verify } from '@/services/verify';
 import Button from "@/components/Button";
+import { useAuthStore } from '@/store/authStore';
 
 type LoginFormInputs = {
     email: string;
@@ -14,12 +15,16 @@ type LoginFormInputs = {
 };
 
 export default function Login() {
+    const { setEmail, setPassword } = useAuthStore();
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const router = useRouter();
 
     const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
         setErrorMessage(null);
+        setEmail(data.email);
+        setPassword(data.password);
+
         try {
             const response = await verify({
                 email: data.email,
@@ -27,8 +32,7 @@ export default function Login() {
             });
 
             if (response.success) {
-                console.log('Verification successful:', response);
-                router.push(`/login/verify?email=${encodeURIComponent(data.email)}`);
+                router.push(`/login/verify`);
             } else {
                 setErrorMessage(response.message);
             }
@@ -37,7 +41,8 @@ export default function Login() {
                 setErrorMessage(error.message);
             } else {
                 setErrorMessage('An unexpected error occurred.');
-            }        }
+            }
+        }
     };
 
     return (

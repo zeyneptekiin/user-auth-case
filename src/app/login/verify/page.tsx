@@ -1,11 +1,12 @@
 "use client";
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useState, Suspense } from 'react';
 import { login } from '@/services/login';
 import OtpInput from 'react-otp-input';
 import Button from "@/components/Button";
+import { useAuthStore } from '@/store/authStore';
 
 type OtpFormInputs = {
     otp: string;
@@ -13,28 +14,25 @@ type OtpFormInputs = {
 
 function OtpForm() {
     const router = useRouter();
-    const searchParams = useSearchParams();
-    const email = searchParams.get('email');
+    const { email, password, setPassword } = useAuthStore();
     const { handleSubmit, formState: { errors } } = useForm<OtpFormInputs>();
     const [otp, setOtp] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     const onOtpSubmit: SubmitHandler<OtpFormInputs> = async () => {
         setErrorMessage(null);
-        try {
-            const response = await login({
-                email: email as string,
-                otp: otp,
-            });
 
-            if (response.success) {
-                router.push('/');
-            } else {
-                setErrorMessage(response.message);
-            }
-        } catch (error: unknown) {
-            const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
-            setErrorMessage(`An unknown error occurred: ${errorMessage}`);
+        const response = await login({
+            email,
+            password,
+            otp,
+        });
+
+        if (response.token) {
+            setPassword('');
+            router.push('/');
+        } else {
+            setErrorMessage(response.message);
         }
     };
 
