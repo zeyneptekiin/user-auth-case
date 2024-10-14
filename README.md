@@ -1,8 +1,24 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
+First, clone the repository:
+
+```bash
+git clone https://github.com/zeyneptekiin/user-auth-case.git
+```
+
+Navigate into the project directory:
+
+```bash
+cd user-auth-case
+```
+
+Install the dependencies:
+
+```bash
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -16,21 +32,50 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Running Tests
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Jest Tests
 
-## Learn More
+To run the Jest tests:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run test:jest
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Cypress Tests
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+First, ensure the development server is running:
 
-## Deploy on Vercel
+```bash
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Then, in a new terminal window, run the Cypress tests:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npx cypress open
+```
+
+**Note:** If the server is not running, you may encounter the following error:
+
+```
+Cypress could not verify that this server is running:
+
+http://localhost:3000
+
+This server has been configured as your baseUrl, and tests will likely fail if it is not running.
+```
+
+## Continuous Integration and Continuous Deployment (CI/CD)
+
+This project uses GitHub Actions for CI/CD. The workflow is configured to automatically run tests and deploy the application upon every push or pull request to the main branch.
+
+### Deployment
+
+The project is deployed on Vercel and can be accessed via the following URL:
+
+[https://user-auth-case.vercel.app/](https://user-auth-case.vercel.app/)
+
+Additionally, the Vercel deployment has been connected to a custom subdomain:
+
+[https://ycc.usrt.xyz/](https://ycc.usrt.xyz/)
