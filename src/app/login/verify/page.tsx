@@ -50,7 +50,7 @@ function OtpForm() {
                         numInputs={6}
                         renderInput={(props) => <input {...props} />}
                         containerStyle="mb-4"
-                        inputStyle={`mx-auto !w-10 h-10 border rounded ${errors.otp ? 'border-red-500' : 'border-gray-300'}`}
+                        inputStyle={`mx-auto !w-10 h-10 border rounded text-black-blue ${errors.otp ? 'border-red-500' : 'border-gray-300'}`}
                     />
                     {errorMessage && <p className="text-left text-red-500 text-sm mb-3 pl-2">{errorMessage}!</p>}
 
