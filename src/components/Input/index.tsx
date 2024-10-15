@@ -33,7 +33,7 @@ export default function Input<T extends FieldValues>({
                 type={showPassword && type === "password" ? "text" : type}
                 placeholder={placeholder}
                 {...register(name, options)}
-                className={`w-full p-2 mb-1 border rounded ${error ? 'border-red-500' : 'border-gray-300'}`}
+                className={`w-full p-2 mb-1 border rounded text-black-blue ${error ? 'border-red-500' : 'border-gray-300'}`}
             />
 
             {type === "password" && (
