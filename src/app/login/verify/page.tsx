@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useState, Suspense } from 'react';
 import { login } from '@/services/login';
@@ -13,7 +12,6 @@ type OtpFormInputs = {
 };
 
 function OtpForm() {
-    const router = useRouter();
     const { email, password, setPassword } = useAuthStore();
     const { handleSubmit, formState: { errors } } = useForm<OtpFormInputs>();
     const [otp, setOtp] = useState<string>('');
@@ -30,7 +28,7 @@ function OtpForm() {
 
         if (response.token) {
             setPassword('');
-            router.push('/');
+            window.location.href = '/';
         } else {
             setErrorMessage(response.message);
         }
