@@ -18,6 +18,7 @@ export default function Navbar() {
 
     const handleLogout = () => {
         clearAuth();
+        setAuthToken(null);
         window.location.reload();
     };
 
