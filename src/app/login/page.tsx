@@ -22,8 +22,6 @@ export default function Login() {
 
     const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
         setErrorMessage(null);
-        setEmail(data.email);
-        setPassword(data.password);
 
         try {
             const response = await verify({
@@ -32,6 +30,8 @@ export default function Login() {
             });
 
             if (response.success) {
+                setEmail(data.email);
+                setPassword(data.password);
                 router.push(`/login/verify`);
             } else {
                 setErrorMessage(response.message);
