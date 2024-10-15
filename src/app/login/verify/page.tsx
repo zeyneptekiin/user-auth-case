@@ -46,11 +46,27 @@ function OtpForm() {
                 <form onSubmit={handleSubmit(onOtpSubmit)}>
                     <OtpInput
                         value={otp}
-                        onChange={setOtp}
+                        onChange={(value) => {
+                            if (/^\d*$/.test(value)) {
+                                setOtp(value);
+                            }
+                        }}
                         numInputs={6}
-                        renderInput={(props) => <input {...props} />}
+                        renderInput={(props) => (
+                            <input
+                                {...props}
+                                inputMode="numeric"
+                                pattern="[0-9]*"
+                                autoComplete="one-time-code"
+                                className={`mx-auto !w-10 h-10 border rounded text-black-blue ${errors.otp ? 'border-red-500' : 'border-gray-300'}`}
+                                onKeyDown={(e) => {
+                                    if (e.key.match(/[^0-9]/)) {
+                                        e.preventDefault();
+                                    }
+                                }}
+                            />
+                        )}
                         containerStyle="mb-4"
-                        inputStyle={`mx-auto !w-10 h-10 border rounded text-black-blue ${errors.otp ? 'border-red-500' : 'border-gray-300'}`}
                     />
                     {errorMessage && <p className="text-left text-red-500 text-sm mb-3 pl-2">{errorMessage}!</p>}
 
