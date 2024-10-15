@@ -32,6 +32,7 @@ export default function Input<T extends FieldValues>({
             <input
                 type={showPassword && type === "password" ? "text" : type}
                 placeholder={placeholder}
+                autoComplete={type === "email" ? "email" : undefined}
                 {...register(name, options)}
                 className={`w-full p-2 mb-1 border rounded text-black-blue ${error ? 'border-red-500' : 'border-gray-300'}`}
             />
