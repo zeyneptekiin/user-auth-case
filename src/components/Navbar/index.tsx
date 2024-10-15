@@ -16,6 +16,11 @@ export default function Navbar() {
         setAuthToken(token);
     }, []);
 
+    const handleLogout = () => {
+        clearAuth();
+        window.location.reload();
+    };
+
     return (
         <nav className="bg-primary-blue p-4 text-white">
             <div className="max-w-7xl mx-auto flex justify-between">
@@ -29,9 +34,11 @@ export default function Navbar() {
                 </Link>
                 {authToken ? (
                     <div className="flex gap-4">
-                        <button onClick={clearAuth} className="hover:underline font-semibold text-white">Log Out</button>
+                        <button onClick={handleLogout} className="hover:underline font-semibold text-white">
+                            Log Out
+                        </button>
                     </div>
-                    ) : (
+                ) : (
                     <div className="flex gap-4">
                         <Link
                             href="/signup"
@@ -52,7 +59,6 @@ export default function Navbar() {
                         </Link>
                     </div>
                 )}
-
             </div>
         </nav>
     );
