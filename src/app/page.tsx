@@ -2,11 +2,19 @@
 
 import { useAuthStore } from '@/store/authStore';
 import Link from 'next/link';
-import {getCookie} from "cookies-next";
+import { useEffect, useState } from 'react';
+import { getCookie } from 'cookies-next';
 
 export default function Home() {
     const { userName } = useAuthStore();
-    const authToken = getCookie('authToken');
+    const [authToken, setAuthToken] = useState<string | null>(null);
+
+    useEffect(() => {
+        const token = getCookie('authToken') as string | undefined;
+        if (token) {
+            setAuthToken(token);
+        }
+    }, []);
 
     return (
         <div className="flex items-center justify-center min-h-screen p-8 bg-lightest-blue">

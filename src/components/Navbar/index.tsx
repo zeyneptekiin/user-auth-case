@@ -2,13 +2,19 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {useAuthStore} from "@/store/authStore";
-import {getCookie} from "cookies-next";
+import { useAuthStore } from "@/store/authStore";
+import { getCookie } from "cookies-next";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
     const pathname = usePathname();
     const { clearAuth } = useAuthStore();
-    const authToken = getCookie('authToken');
+    const [authToken, setAuthToken] = useState<string | null>(null);
+
+    useEffect(() => {
+        const token = getCookie('authToken') as string | null;
+        setAuthToken(token);
+    }, []);
 
     return (
         <nav className="bg-primary-blue p-4 text-white">
