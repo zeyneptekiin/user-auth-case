@@ -23,7 +23,7 @@ export default function Navbar() {
     };
 
     return (
-        <nav className="bg-primary-blue p-4 text-white">
+        <nav className="bg-primary-blue p-4 text-white h-[60px] absolute w-screen">
             <div className="max-w-7xl mx-auto flex justify-between">
                 <Link
                     href="/"
