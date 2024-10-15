@@ -60,7 +60,13 @@ function OtpForm() {
                                 autoComplete="one-time-code"
                                 className={`mx-auto !w-10 h-10 border rounded text-black-blue ${errors.otp ? 'border-red-500' : 'border-gray-300'}`}
                                 onKeyDown={(e) => {
-                                    if (e.key.match(/[^0-9]/)) {
+                                    if (
+                                        e.key !== "Backspace" &&
+                                        e.key !== "Delete" &&
+                                        e.key !== "ArrowLeft" &&
+                                        e.key !== "ArrowRight" &&
+                                        e.key.match(/[^0-9]/)
+                                    ) {
                                         e.preventDefault();
                                     }
                                 }}
