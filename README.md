@@ -32,6 +32,23 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## OTP Verification
+
+To perform OTP verification, the system requires **email** and **password** to be sent again during the OTP request. To avoid asking the user to re-enter their email and password, these values are temporarily stored in **Zustand** state and cleared after the OTP request is completed.
+
+### ⚠ Security Note:
+
+Storing sensitive information like **email** and **password** in the frontend state management (such as **Zustand**) can pose a **security risk** because these values are stored in the browser's memory until they are cleared.
+
+### Token Storage
+
+The **auth token** is stored in a **cookie** for the following reasons:
+
+- Cookies provide a secure and convenient way to persist session data across multiple pages or tabs in a browser.
+- By setting proper attributes such as `HttpOnly`, `Secure`, and `SameSite`, cookies can offer improved security over alternatives like `localStorage` or `sessionStorage`.
+
+The token stored in a cookie is used to maintain the authenticated state of the user, allowing seamless navigation between pages while keeping the session secure.
+
 ## Running Tests
 
 ### Jest Tests
