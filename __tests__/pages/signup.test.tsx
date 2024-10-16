@@ -1,8 +1,8 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import SignUp from '@/app/signup/page';
-import { useRouter } from 'next/navigation';
-import { registerUser } from '@/services/register';
 import '@testing-library/jest-dom';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import SignUp from '../../src/app/signup/page';
+import { useRouter } from 'next/navigation';
+import { registerUser } from '../../src/services/register';
 
 jest.mock('next/navigation', () => ({
     useRouter: jest.fn(),
@@ -23,7 +23,6 @@ describe('SignUp Page', () => {
         jest.clearAllMocks();
     });
 
-    // Helper function to fill form and submit
     const fillAndSubmitForm = async (username: string, email: string, password: string, confirmPassword: string) => {
         render(<SignUp />);
 
