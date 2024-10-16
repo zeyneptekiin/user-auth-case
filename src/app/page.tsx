@@ -21,8 +21,8 @@ export default function Home() {
             <div className="w-[400px] text-center bg-lighter-blue px-2 py-32 rounded-2xl shadow-xl">
                 { authToken ? (
                     <>
-                        <p className="text-lg font-semibold">Welcome {userName}!</p>
-                        <p className="text-sm text-gray-500">Your login has been successfully completed!</p>
+                        <p className="text-lg font-semibold text-black-blue">Welcome {userName}!</p>
+                        <p className="text-sm text-black-blue">Your login has been successfully completed!</p>
                     </>
                 ) : (
                     <>

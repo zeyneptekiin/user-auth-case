@@ -48,7 +48,7 @@ export default function Login() {
     return (
         <div className="flex items-center justify-center min-h-screen p-8 bg-lightest-blue">
             <div className="w-[400px] text-center bg-lighter-blue px-6 py-8 rounded-2xl shadow-xl">
-                <h2 className="text-lg font-semibold mb-4">Log In</h2>
+                <h2 className="text-lg font-semibold mb-4 text-black-blue">Log In</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Input
                         type="email"
