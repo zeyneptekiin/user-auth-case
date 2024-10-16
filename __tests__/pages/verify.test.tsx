@@ -1,28 +1,34 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import Verify from '@/app/login/verify/page';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { login } from '@/services/login';
 import '@testing-library/jest-dom';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import Verify from '../../src/app/login/verify/page';
+import { useRouter } from 'next/navigation';
+import { login } from '../../src/services/login';
+import { useAuthStore } from '../../src/store/authStore';
 
 jest.mock('next/navigation', () => ({
     useRouter: jest.fn(),
-    useSearchParams: jest.fn(),
 }));
 
 jest.mock('../../src/services/login', () => ({
     login: jest.fn(),
 }));
 
+jest.mock('../../src/store/authStore', () => ({
+    useAuthStore: jest.fn(),
+}));
+
 describe('Verify Page', () => {
     const mockPush = jest.fn();
-    const mockSearchParams = {
-        get: jest.fn(),
+    const mockSetPassword = jest.fn();
+    const mockUseAuthStore = {
+        email: 'test@example.com',
+        password: 'test123',
+        setPassword: mockSetPassword,
     };
 
     beforeEach(() => {
         (useRouter as jest.Mock).mockReturnValue({ push: mockPush });
-        (useSearchParams as jest.Mock).mockReturnValue(mockSearchParams);
-        mockSearchParams.get.mockReturnValue('test@example.com');
+        (useAuthStore as unknown as jest.Mock).mockReturnValue(mockUseAuthStore);
     });
 
     afterEach(() => {
@@ -30,7 +36,7 @@ describe('Verify Page', () => {
     });
 
     it('submits OTP and navigates on success', async () => {
-        (login as jest.Mock).mockResolvedValue({ success: true });
+        (login as jest.Mock).mockResolvedValue({ token: 'dummyToken' });
 
         render(<Verify />);
 
@@ -43,12 +49,14 @@ describe('Verify Page', () => {
         fireEvent.click(submitButton);
 
         await waitFor(() => {
-            expect(login).toHaveBeenCalledWith({ email: 'test@example.com', otp: '123456' });
+            expect(login).toHaveBeenCalledWith({ email: 'test@example.com', password: 'test123', otp: '123456' });
         });
 
         await waitFor(() => {
             expect(mockPush).toHaveBeenCalledWith('/');
         });
+
+        expect(mockSetPassword).toHaveBeenCalledWith('');
     });
 
     it('displays the error message when OTP verification fails', async () => {
@@ -83,7 +91,7 @@ describe('Verify Page', () => {
         fireEvent.click(submitButton);
 
         await waitFor(() => {
-            expect(screen.getByText(/an unknown error occurred: network error/i)).toBeInTheDocument(); // Verify error message
+            expect(screen.getByText(/an unknown error occurred/i)).toBeInTheDocument();
         });
     });
 });
