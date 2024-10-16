@@ -31,7 +31,7 @@ describe('registerUser', () => {
         const mockError = {
             isAxiosError: true,
             message: 'Network Error',
-            response: undefined, // response yok
+            response: undefined,
         };
 
         mockedAxios.post.mockRejectedValueOnce(mockError);
