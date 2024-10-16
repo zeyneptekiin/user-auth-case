@@ -70,6 +70,12 @@ function OtpForm() {
                                         e.preventDefault();
                                     }
                                 }}
+                                onPaste={(e) => {
+                                    const pastedData = e.clipboardData.getData('Text');
+                                    if (!/^\d*$/.test(pastedData)) {
+                                        e.preventDefault();
+                                    }
+                                }}
                             />
                         )}
                         containerStyle="mb-4"
