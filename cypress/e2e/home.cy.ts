@@ -25,4 +25,12 @@ describe('Home Page Navigation', () => {
 
         cy.contains('Log In').should('be.visible');
     });
+
+    it('should display the welcome message if the user is authenticated', () => {
+        cy.setCookie('authToken', 'dummyToken');
+        cy.reload();
+
+        cy.contains('Welcome').should('be.visible');
+        cy.contains('Your login has been successfully completed!').should('be.visible');
+    });
 });
