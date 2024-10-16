@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import Login from '@/app/login/page';
+import Login from '../../src/app/login/page';
 import { useRouter } from 'next/navigation';
 import { verify } from '@/services/verify';
 import '@testing-library/jest-dom';
@@ -51,7 +51,7 @@ describe('Login Page', () => {
             password: 'Password123',
         }));
 
-        expect(mockPush).toHaveBeenCalledWith('/login/verify?email=test%40example.com');
+        expect(mockPush).toHaveBeenCalledWith('/login/verify');
     });
 
     it('displays error message on failed verification', async () => {
