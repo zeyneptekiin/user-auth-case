@@ -42,6 +42,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 - **React Hook Form**: Implemented for managing forms, providing efficient validation, state management, and reducing unnecessary re-renders.
 
+- **Zustand**: A lightweight state management library used to manage global state for authentication, such as storing user credentials (email, password, username) and handling authentication-related logic (e.g., login, logout).
+
 ### Custom Components
 
 - **Navbar**: A custom navigation bar component for consistent header navigation across the application.
