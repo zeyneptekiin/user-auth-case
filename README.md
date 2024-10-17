@@ -52,6 +52,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 - **Button**: A custom button component for consistent styling and behavior across different parts of the application.
 
+## Error Handling
+
+In this project, **Axios** is used for making HTTP requests, and error handling is implemented using **try-catch** blocks to ensure fault tolerance.
+
+- **Axios**: Axios is used to manage HTTP requests and handle responses efficiently. It also provides easy error handling through `axios.isAxiosError()` to differentiate between different types of errors and handle them appropriately.
+
+- **Try-Catch**: All API requests are wrapped in `try-catch` blocks to ensure that any error occurring during the request or response handling is caught and managed gracefully. If an error occurs, meaningful error messages are returned to the user to improve user experience and debugging.
+
 ## OTP Verification
 
 To perform OTP verification, the system requires **email** and **password** to be sent again during the OTP request. To avoid asking the user to re-enter their email and password, these values are temporarily stored in **Zustand** state and cleared after the OTP request is completed.
