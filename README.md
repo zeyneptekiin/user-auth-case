@@ -96,3 +96,36 @@ The project is deployed on Vercel and can be accessed via the following URL:
 Additionally, the Vercel deployment has been connected to a custom subdomain:
 
 [https://ycc.usrt.xyz/](https://ycc.usrt.xyz/)
+
+## Performance Improvements
+
+This project has undergone performance optimizations based on **Google Lighthouse** test results to enhance load times and overall user experience.
+
+### Lighthouse Tests & Optimizations
+
+Several key improvements were implemented after running **Lighthouse** tests, focusing on optimizing the rendering of the page and reducing unnecessary file loads:
+
+- **Enabled Just-In-Time (JIT) Mode**:
+  The **JIT mode** for Tailwind CSS was enabled, allowing for faster build times and reducing the size of the generated CSS by only including the classes that are actually used. This led to a significant reduction in CSS file size, improving page load speed.
+
+- **Moved Font Import to Layout**:
+  Instead of importing the font in the CSS file, the web font import was moved to the **Next.js Layout component**. This reduces the render-blocking behavior caused by external CSS file loads and improves **First Contentful Paint (FCP)**. The web font is loaded with `font-display: swap`, ensuring text is immediately visible with a fallback font while the custom font loads.
+
+These optimizations contributed to improved loading speeds, quicker interactivity, and better Lighthouse performance scores.
+
+### Lighthouse Test Results
+
+After making these optimizations, Lighthouse tests were run for both **desktop** and **mobile** versions of the application. Below are the results:
+
+#### Desktop Results:
+- **Performance**: 100
+- **Accessibility**: 94
+- **Best Practices**: 100
+- **SEO**: 100
+
+#### Mobile Results:
+- **Performance**: 87
+- **Accessibility**: 94
+- **Best Practices**: 100
+- **SEO**: 100
+
