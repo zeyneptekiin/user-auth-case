@@ -8,6 +8,7 @@ import Input from '../../components/Input';
 import { verify } from '@/services/verify';
 import Button from "@/components/Button";
 import { useAuthStore } from '@/store/authStore';
+import axios from "axios";
 
 type LoginFormInputs = {
     email: string;
@@ -49,8 +50,8 @@ export default function Login() {
             }
         } catch (error) {
             // Handle unexpected errors
-            if (error instanceof Error) {
-                setErrorMessage(error.message);
+            if (axios.isAxiosError(error)) {
+                setErrorMessage(error.response?.data?.message || 'An error occurred during login.');
             } else {
                 setErrorMessage('An unexpected error occurred.');
             }
