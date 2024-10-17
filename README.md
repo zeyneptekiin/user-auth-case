@@ -90,12 +90,12 @@ npm run test:jest
 ```
 #### Jest Test Coverage Summary:
 
-| Metric  | Coverage  |
-|---------|-----------|
-| **Statements** | 96.61%   |
-| **Branches** | 84.7%    |
-| **Functions** | 91.66%   |
-| **Lines** | 96.61%   |
+| Metric  | Coverage |
+|---------|----------|
+| **Statements** | 96.29%   |
+| **Branches** | 83.67%   |
+| **Functions** | 92%      |
+| **Lines** | 96.29%    |
 
 
 ### Cypress Tests
