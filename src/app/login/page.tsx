@@ -73,7 +73,7 @@ export default function Login() {
                         Log In
                     </Button>
                 </form>
-                <p className="mt-4">
+                <p className="mt-4 text-black-blue">
                     Don&#39;t have an account? <Link href="/signup" className="font-semibold">Sign Up</Link>
                 </p>
             </div>

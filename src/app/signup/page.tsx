@@ -130,7 +130,7 @@ export default function SignUp() {
                         Sign Up
                     </Button>
                 </form>
-                <p className="mt-4">
+                <p className="mt-4 text-black-blue">
                     Already have an account? <Link href="/login" className="font-semibold">Log In</Link>
                 </p>
             </div>
