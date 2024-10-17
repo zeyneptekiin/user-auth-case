@@ -4,15 +4,17 @@ import { useState, useEffect } from "react";
 
 interface PasswordModalProps {
     password: string;
-    touched: boolean;
+    isDirty: boolean;
 }
 
-export default function PasswordModal({ password, touched }: PasswordModalProps) {
-    const [isOpen, setIsOpen] = useState(touched);
+export default function PasswordModal({ password, isDirty }: PasswordModalProps) {
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
-        setIsOpen(touched);
-    }, [touched]);
+        if (isDirty) {
+            setIsOpen(true);
+        }
+    }, [isDirty]);
 
     const passwordValue = password || "";
 

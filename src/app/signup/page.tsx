@@ -25,11 +25,13 @@ export default function SignUp() {
     // react-hook-form setup for form handling and validation
     const { register, handleSubmit, watch, formState: { errors } } = useForm<SignUpFormInputs>();
 
+    // Watch password field
+    const password = watch('password');
+
     // Local states for managing messages and form feedback
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
     const [showPopup, setShowPopup] = useState(false);
-    const [passwordTouched, setPasswordTouched] = useState(false);
 
     const router = useRouter();
 
@@ -123,12 +125,11 @@ export default function SignUp() {
                         name="password"
                         options={{
                             required: 'Password is required!',
-                            onChange: () => setPasswordTouched(true),
                         }}
                         error={errors.password?.message}
                     />
 
-                    <PasswordModal password={watch('password')} touched={passwordTouched}/>
+                    <PasswordModal password={password} isDirty={!!password} />
 
                     {/* Confirm password field with matching validation */}
                     <Input
