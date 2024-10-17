@@ -3,11 +3,11 @@ import PasswordModal from '@/components/PasswordModal';
 import '@testing-library/jest-dom';
 
 describe('PasswordModal Component', () => {
-    const setup = (password: string, touched: boolean) => {
-        return render(<PasswordModal password={password} touched={touched} />);
+    const setup = (password: string, isDirty: boolean) => {
+        return render(<PasswordModal password={password} isDirty={isDirty} />);
     };
 
-    it('renders the modal with correct password requirements when touched is true', () => {
+    it('renders the modal with correct password requirements when isDirty is true', () => {
         setup('Test1234', true);
 
         expect(screen.getByText(/at least 8 characters/i)).toBeInTheDocument();
@@ -34,7 +34,7 @@ describe('PasswordModal Component', () => {
         expect(screen.getByText(/at least one number/i)).toHaveClass('text-red-500');
     });
 
-    it('does not render the modal if touched is false', () => {
+    it('does not render the modal if isDirty is false', () => {
         setup('Test1234', false);
 
         expect(screen.queryByText(/at least 8 characters/i)).not.toBeInTheDocument();
