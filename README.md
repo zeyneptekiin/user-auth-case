@@ -78,6 +78,15 @@ To run the Jest tests:
 ```bash
 npm run test:jest
 ```
+#### Jest Test Coverage Summary:
+
+| Metric  | Coverage  |
+|---------|-----------|
+| **Statements** | 96.61%   |
+| **Branches** | 84.7%    |
+| **Functions** | 91.66%   |
+| **Lines** | 96.61%   |
+
 
 ### Cypress Tests
 
