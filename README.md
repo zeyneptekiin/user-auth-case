@@ -32,6 +32,26 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Tools & Components
+
+### Libraries Used
+
+- **React OTP Input**: Used for handling One-Time Password (OTP) input fields efficiently, with built-in validation and styling options.
+
+- **Tailwind CSS**: Utilized for fast, utility-first styling, ensuring a consistent and responsive design across the application without the need for custom CSS.
+
+- **React Hook Form**: Implemented for managing forms, providing efficient validation, state management, and reducing unnecessary re-renders.
+
+### Custom Components
+
+- **Navbar**: A custom navigation bar component for consistent header navigation across the application.
+
+- **Input**: A reusable input field component with integrated validation, designed to work seamlessly with **React Hook Form**.
+
+- **PasswordModal**: A modal component specifically for handling password requirements and feedback to the user when they interact with the password input field.
+
+- **Button**: A custom button component for consistent styling and behavior across different parts of the application.
+
 ## OTP Verification
 
 To perform OTP verification, the system requires **email** and **password** to be sent again during the OTP request. To avoid asking the user to re-enter their email and password, these values are temporarily stored in **Zustand** state and cleared after the OTP request is completed.
