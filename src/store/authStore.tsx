@@ -19,6 +19,8 @@ export const useAuthStore = create<AuthState>((set) => ({
     setEmail: (email: string) => set({ email }),
     setPassword: (password: string) => set({ password }),
     setUserName: (userName: string) => set({ userName }),
+
+    // Function to clear the authentication data and delete the auth token cookie
     clearAuth: () => {
         deleteCookie('authToken');
         set({ userName: null, email: '', password: '', });

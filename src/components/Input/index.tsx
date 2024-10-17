@@ -21,14 +21,17 @@ export default function Input<T extends FieldValues>({
                                                          options,
                                                          error,
                                                      }: InputProps<T>) {
+    // Local state to manage password visibility
     const [showPassword, setShowPassword] = useState(false);
 
+    // Toggles password visibility in input field
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
     };
 
     return (
         <div className="relative">
+            {/* Input field with dynamic type (for password visibility toggle) */}
             <input
                 type={showPassword && type === "password" ? "text" : type}
                 placeholder={placeholder}
@@ -37,6 +40,7 @@ export default function Input<T extends FieldValues>({
                 className={`w-full p-2 mb-1 border rounded text-black-blue ${error ? 'border-red-500' : 'border-gray-300'}`}
             />
 
+            {/* Show/Hide password toggle eye icon for password fields */}
             {type === "password" && (
                 <span onClick={toggleShowPassword} className="absolute right-2 top-3 cursor-pointer">
                     <Image
@@ -50,6 +54,7 @@ export default function Input<T extends FieldValues>({
                 </span>
             )}
 
+            {/* Error message if input validation fails */}
             {error && <p className="text-left text-red-500 text-sm mb-3 pl-2">{error}</p>}
         </div>
     );

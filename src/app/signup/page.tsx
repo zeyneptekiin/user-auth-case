@@ -19,19 +19,27 @@ type SignUpFormInputs = {
 };
 
 export default function SignUp() {
+    // Zustand global store for managing user state
     const { setUserName, setEmail, setPassword } = useAuthStore();
+
+    // react-hook-form setup for form handling and validation
     const { register, handleSubmit, watch, formState: { errors } } = useForm<SignUpFormInputs>();
+
+    // Local states for managing messages and form feedback
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
     const [showPopup, setShowPopup] = useState(false);
     const [passwordTouched, setPasswordTouched] = useState(false);
+
     const router = useRouter();
 
+    // Handle form submission
     const onSubmit: SubmitHandler<SignUpFormInputs> = async (data) => {
         setErrorMessage(null);
         setSuccessMessage(null);
 
         try {
+            // Call registerUser service to register the user
             const result = await registerUser({
                 email: data.email,
                 password: data.password,
@@ -39,15 +47,18 @@ export default function SignUp() {
             });
 
             if (result.success) {
+                // If registration is successful, display success message and show popup
                 setSuccessMessage('User registered successfully.');
                 setShowPopup(true);
 
+                // Attempt to log in the user automatically
                 const loginResponse = await verify({
                     email: data.email,
                     password: data.password,
                 });
 
                 if (loginResponse.success) {
+                    // If login is successful, set user info in the store and redirect to OTP page
                     setUserName(data.username);
                     setEmail(data.email);
                     setPassword(data.password);
@@ -55,13 +66,16 @@ export default function SignUp() {
                         router.push(`/login/verify`);
                     }, 5000);
                 } else {
+                    // Display error if login fails
                     setErrorMessage('Login after registration failed.');
                 }
 
             } else {
+                // Handle registration failure
                 setErrorMessage(result.message || 'Failed to register user.');
             }
         } catch {
+            // Catch unknown errors and display message
             setErrorMessage('An unknown error occurred. Please try again.');
         }
     };
@@ -74,6 +88,7 @@ export default function SignUp() {
 
                 {errorMessage && <p className="text-red-500 mb-4">{errorMessage}</p>}
 
+                {/* Success message and popup on successful registration */}
                 {successMessage && showPopup && (
                     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-10">
                         <div className="bg-white p-4 rounded shadow-md text-center">
@@ -83,6 +98,7 @@ export default function SignUp() {
                     </div>
                 )}
 
+                {/* Form for sign-up */}
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Input
                         type="text"
@@ -114,6 +130,7 @@ export default function SignUp() {
 
                     <PasswordModal password={watch('password')} touched={passwordTouched}/>
 
+                    {/* Confirm password field with matching validation */}
                     <Input
                         type="password"
                         placeholder="Confirm Password"

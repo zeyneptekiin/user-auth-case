@@ -12,6 +12,7 @@ type OtpFormInputs = {
 };
 
 function OtpForm() {
+    // Zustand global store to retrieve email, password and reset password after OTP verification
     const { email, password, setPassword } = useAuthStore();
     const { handleSubmit, formState: { errors } } = useForm<OtpFormInputs>();
     const [otp, setOtp] = useState<string>('');
@@ -27,9 +28,11 @@ function OtpForm() {
         });
 
         if (response.token) {
+            // If login is successful, clear the password from Zustand and redirect the user
             setPassword('');
             window.location.href = '/';
         } else {
+            // Display error message if OTP verification fails
             setErrorMessage(response.message);
         }
     };
@@ -63,6 +66,8 @@ function OtpForm() {
                         )}
                         containerStyle="mb-4"
                     />
+
+                    {/* Error message if OTP verification fails */}
                     {errorMessage && <p className="text-left text-red-500 text-sm mb-3 pl-2">{errorMessage}!</p>}
 
                     <Button>

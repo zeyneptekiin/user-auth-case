@@ -15,28 +15,40 @@ type LoginFormInputs = {
 };
 
 export default function Login() {
+    // Zustand global store to manage email and password
     const { setEmail, setPassword } = useAuthStore();
+
+    // react-hook-form setup for handling form submission and validation
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
+
+    // Local state to manage error messages
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
     const router = useRouter();
 
+    // Handle form submission
     const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
         setErrorMessage(null);
 
         try {
+            // Call the verify service to authenticate the user
             const response = await verify({
                 email: data.email,
                 password: data.password,
             });
 
             if (response.success) {
+                // If authentication is successful, store the user's email and password
                 setEmail(data.email);
                 setPassword(data.password);
+
                 router.push(`/login/verify`);
             } else {
+                // Display error message if authentication fails
                 setErrorMessage(response.message);
             }
         } catch (error) {
+            // Handle unexpected errors
             if (error instanceof Error) {
                 setErrorMessage(error.message);
             } else {
@@ -49,6 +61,8 @@ export default function Login() {
         <div className="flex items-center justify-center min-h-screen p-8 bg-lightest-blue">
             <div className="w-[400px] text-center bg-lighter-blue px-6 py-8 rounded-2xl shadow-xl">
                 <h2 className="text-lg font-semibold mb-4 text-black-blue">Log In</h2>
+
+                {/* Form for login */}
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Input
                         type="email"
@@ -67,6 +81,7 @@ export default function Login() {
                         error={errors.password?.message || ''}
                     />
 
+                    {/* Error message if login fails */}
                     {errorMessage && <p className="text-red-500 mb-4 text-left text-sm pl-2">{errorMessage}!</p>}
 
                     <Button>

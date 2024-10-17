@@ -16,10 +16,11 @@ export default function Navbar() {
         setAuthToken(token);
     }, []);
 
+    // Handle logout functionality: clear the auth data and reload the page
     const handleLogout = () => {
-        clearAuth();
-        setAuthToken(null);
-        window.location.reload();
+        clearAuth(); // Clear authentication data from Zustand store
+        setAuthToken(null); // Reset auth token in local state
+        window.location.reload(); // Reload the page to apply logout changes
     };
 
     return (
@@ -33,13 +34,17 @@ export default function Navbar() {
                 >
                     Home
                 </Link>
+
+                {/* Conditional rendering based on the presence of the auth token */}
                 {authToken ? (
+                    // If user is logged in, show the Log-Out button
                     <div className="flex gap-4">
                         <button onClick={handleLogout} className="hover:underline font-semibold text-white">
                             Log Out
                         </button>
                     </div>
                 ) : (
+                    // If user is not logged in, show Sign Up and Log In links
                     <div className="flex gap-4">
                         <Link
                             href="/signup"
